@@ -49,6 +49,7 @@ function TextAreaComponentData() {
       <form>
         <label htmlFor="default-value">Default Value </label>
         <textarea
+          id="default-value"
           value={textAreaData.defaultValue}
           onChange={handleTextChange}
         ></textarea>

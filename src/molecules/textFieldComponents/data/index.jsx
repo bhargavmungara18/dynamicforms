@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useFormContext } from "../../../hooks/useCreateFormContext";
 import RadioButton from "../../../atoms/RadioButtons";
+import TextInput from "../../../atoms/TextInput";
 
 function TextFieldData() {
-  const [selectedCase, setSelectedCase] = useState({
+  const [textFieldContent, settextFieldContent] = useState({
     type: "text",
-    value: "",
+    selectedCase: "",
+    defaultValue: "",
   });
 
   const { handlePreviewDetails, previewDetails } = useFormContext();
 
   const handleCaseChange = (value) => {
-    setSelectedCase({ ...selectedCase, value });
+    settextFieldContent({ ...textFieldContent, selectedCase: value });
     handlePreviewDetails({ ...previewDetails, selectedCase: value });
   };
 
@@ -25,9 +27,32 @@ function TextFieldData() {
     },
   ];
 
+  const handleTextChange = (e) => {
+    let value = e.target.value;
+    let transformedValue = value;
+
+    if (previewDetails.selectedCase === "uppercase") {
+      transformedValue = value.toUpperCase();
+    } else if (previewDetails.selectedCase === "lowercase") {
+      transformedValue = value.toLowerCase();
+    }
+
+    settextFieldContent({
+      ...textFieldContent,
+      defaultValue: transformedValue,
+    });
+    handlePreviewDetails({ ...previewDetails, defaultValue: transformedValue });
+  };
+
   return (
     <>
       <h2>Text Case</h2>
+      <label htmlFor="default-value">Default Value</label>
+      <TextInput
+        value={textFieldContent.defaultValue}
+        onChange={handleTextChange}
+        id="default-value"
+      />
       <div>
         {radioOptions.map((option) => (
           <div key={option.id}>
@@ -36,7 +61,7 @@ function TextFieldData() {
               name="lettercase"
               value={option.value}
               checked={
-                selectedCase.value === option.value ||
+                textFieldContent.selectedCase === option.value ||
                 previewDetails.selectedCase === option.value
               }
               onChange={() => handleCaseChange(option.value)}

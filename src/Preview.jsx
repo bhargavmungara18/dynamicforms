@@ -34,7 +34,7 @@ function Preview({
   }, [previewDetails.selected]);
 
   useEffect(() => {
-    if (previewDetails.rows) {
+    if (previewDetails.rows instanceof Array) {
       const defaultSelectedOption = previewDetails.rows.filter(
         (option) => option.defaultChecked
       );
@@ -43,7 +43,15 @@ function Preview({
     }
   }, [previewDetails]);
 
-  console.log(previewDetails, "pre");
+  console.log(previewDetails.defaultValue, "pre");
+
+  console.log(fieldType, "field type is here");
+
+  console.log(text, "text ");
+
+  useEffect(() => {
+    setText(previewDetails.defaultValue);
+  }, [previewDetails.defaultValue]);
 
   const renderField = () => {
     switch (fieldType) {

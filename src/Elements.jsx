@@ -20,7 +20,7 @@ function FormField({ inputValue, onInputChange }) {
     selected,
   } = inputValue;
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState(defaultValue);
   const [selectedOption, setSelectedOption] = useState();
 
   function handleChange(e) {
@@ -73,7 +73,7 @@ function FormField({ inputValue, onInputChange }) {
             label={label}
             prefix={prefix}
             placeholder={placeholder}
-            text={text || defaultValue}
+            text={text}
             handleChange={handleChange}
             suffix={suffix}
             description={description}

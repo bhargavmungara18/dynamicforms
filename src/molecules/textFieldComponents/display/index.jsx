@@ -20,6 +20,15 @@ function TextFieldDisplay() {
       Object.keys(previewDetails).length === 0
     ) {
       handlePreviewDetails({ ...fieldDetails });
+    } else if (Object.keys(previewDetails).length > 0) {
+      setFieldDetails({
+        ...fieldDetails,
+        label: previewDetails.label,
+        placeholder: previewDetails.placeholder,
+        description: previewDetails.description,
+        prefix: previewDetails.prefix,
+        suffix: previewDetails.suffix,
+      });
     }
   }, []);
 
